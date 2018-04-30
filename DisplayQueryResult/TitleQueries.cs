@@ -48,27 +48,88 @@ namespace DisplayQueryResult
             // set data displayed according to what is selected
             switch (cmbbxQueries.SelectedIndex)
             {
-                case 0: // all titles
+                case 0: // All titles with their authors. Sorted by title
                     // use linq
-                    titleBindingSource.DataSource = dbcontext.Titles.Local.OrderBy(book => book.Title1);
+                    var titlesByAuthorSortTitle =
+                        from author in dbcontext.Authors
+                        orderby author.FirstName, author.LastName
+                        select new
+                        {
+                            Name = author.FirstName + " " + author.LastName,
+                            Titles =
+                                from book in author.Titles
+                                orderby book.Title1
+                                select book.Title1
+                        };
+
+                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
+
+                    foreach (var author in titlesByAuthorSortTitle)
+                    {
+                        txtbxResults.AppendText("\r\n\t" + author.Name + ":");
+
+                        foreach (var title in author.Titles)
+                        {
+                            txtbxResults.AppendText("\r\n\t\t" + title);
+                        }
+                    }
+
                     break;
-                case 1: // all titles with copyright 2014
+                case 1: // All titles and the authors. Sorted by title. For each title sort authors A-Z last name, then first
                     // use linq
-                    titleBindingSource.DataSource = dbcontext.Titles.Local
-                        .Where(book => book.Copyright == "2014")
-                        .OrderBy(book => book.Title1); ;
+                    var titlesByAuthorSortTitleSortAuthorAtoZLastNameFirstName =
+                        from author in dbcontext.Authors
+                        orderby author.FirstName, author.LastName
+                        select new
+                        {
+                            Name = author.FirstName + " " + author.LastName,
+                            Titles =
+                                from book in author.Titles
+                                orderby book.Title1
+                                select book.Title1
+                        };
+
+                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
+
+                    foreach (var author in titlesByAuthorSortTitleSortAuthorAtoZLastNameFirstName)
+                    {
+                        txtbxResults.AppendText("\r\n\t" + author.Name + ":");
+
+                        foreach (var title in author.Titles)
+                        {
+                            txtbxResults.AppendText("\r\n\t\t" + title);
+                        }
+                    }
+
                     break;
-                case 2: // all titles ending with "How to Program"
+                case 2: // All authors. Group by title. For each title sort authors A-Z last name, then first
                     // use linq
-                    titleBindingSource.DataSource = dbcontext.Titles.Local
-                        .Where(book => book.Title1.EndsWith("How to Program"))
-                        .OrderBy(book => book.Title1); ;
+                    var authorsByTitleSortTitleSortAuthorAtoZLastNameFirstName =
+                        from author in dbcontext.Authors
+                        orderby author.FirstName, author.LastName
+                        select new
+                        {
+                            Name = author.FirstName + " " + author.LastName,
+                            Titles =
+                                from book in author.Titles
+                                orderby book.Title1
+                                select book.Title1
+                        };
+
+                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
+
+                    foreach (var author in authorsByTitleSortTitleSortAuthorAtoZLastNameFirstName)
+                    {
+                        txtbxResults.AppendText("\r\n\t" + author.Name + ":");
+
+                        foreach (var title in author.Titles)
+                        {
+                            txtbxResults.AppendText("\r\n\t\t" + title);
+                        }
+                    }
+
                     break;
             } // end switch
-
-            // move to first entry
-            titleBindingSource.MoveFirst();
-
         } // end method cmbbxQueries_SelectedIndexChanged
     } // end class TitleQueries
 } // end namespace DisplayQueryResults
