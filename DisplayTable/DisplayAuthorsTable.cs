@@ -38,7 +38,7 @@ namespace DisplayTable
 
         //
         //
-        private void authorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void AuthorBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             Validate(); // validate input fields
             authorBindingSource.EndEdit(); // complete current edit, if any
@@ -51,7 +51,7 @@ namespace DisplayTable
             catch (DbEntityValidationException)
             {
                 MessageBox.Show("FirstName and LastName must contain values", "Entity Validation Exception");
-            }
-        }
-    }
-}
+            } // end catch
+        } // end method AuthorBindingNavigatorSaveItem_Click
+    } // end class DisplayAuthorsTable
+} // end namespace DisplayTable
