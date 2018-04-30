@@ -177,11 +177,11 @@
             // authorBindingNavigatorSaveItem
             // 
             this.authorBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.authorBindingNavigatorSaveItem.Enabled = false;
             this.authorBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("authorBindingNavigatorSaveItem.Image")));
             this.authorBindingNavigatorSaveItem.Name = "authorBindingNavigatorSaveItem";
             this.authorBindingNavigatorSaveItem.Size = new System.Drawing.Size(24, 24);
             this.authorBindingNavigatorSaveItem.Text = "Save Data";
+            this.authorBindingNavigatorSaveItem.Click += new System.EventHandler(this.AuthorBindingNavigatorSaveItem_Click);
             // 
             // authorDataGridView
             // 
@@ -226,6 +226,7 @@
             this.Controls.Add(this.authorBindingNavigator);
             this.Name = "DisplayAuthorsTable";
             this.Text = "Display Authors Table";
+            this.Load += new System.EventHandler(this.DisplayAuthorsTable_Load);
             ((System.ComponentModel.ISupportInitialize)(this.authorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorBindingNavigator)).EndInit();
             this.authorBindingNavigator.ResumeLayout(false);
