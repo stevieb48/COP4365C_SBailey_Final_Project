@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /*
- * This form Displays the Titles Table in the books database using Entity framwork
+ * This form ...
  * 
  * author: Stephen Bailey
  * course: COP4365C
