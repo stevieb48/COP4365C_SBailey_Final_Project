@@ -32,16 +32,6 @@ namespace DisplayQueryResult
         // enitity framework DbContext
         private BooksExamples.BooksEntities dbcontext = new BooksExamples.BooksEntities();
 
-        // load data from database into data grid view
-        private void TitleQueries_Load(object sender, EventArgs e)
-        {
-            // load Titles table into memory
-            dbcontext.Titles.Load();
-
-            // set combobox default query that selects all books from the titles table
-            cmbbxQueries.SelectedIndex = 0;
-        } // end method TitleQueries_Load
-
         //
         private void CmbbxQueries_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -218,7 +218,6 @@
             this.Controls.Add(this.titleBindingNavigator);
             this.Name = "TitleQueries";
             this.Text = "Display Query Results";
-            this.Load += new System.EventHandler(this.TitleQueries_Load);
             ((System.ComponentModel.ISupportInitialize)(this.titleBindingNavigator)).EndInit();
             this.titleBindingNavigator.ResumeLayout(false);
             this.titleBindingNavigator.PerformLayout();
