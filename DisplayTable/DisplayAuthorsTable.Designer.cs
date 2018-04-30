@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayAuthorsTable));
-            this.authorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.authorBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -48,15 +47,12 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.authorBindingSource)).BeginInit();
+            this.authorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.authorBindingNavigator)).BeginInit();
             this.authorBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.authorDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.authorBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // authorBindingSource
-            // 
-            this.authorBindingSource.DataSource = typeof(BooksExamples.Author);
             // 
             // authorBindingNavigator
             // 
@@ -85,7 +81,7 @@
             this.authorBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.authorBindingNavigator.Name = "authorBindingNavigator";
             this.authorBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.authorBindingNavigator.Size = new System.Drawing.Size(301, 27);
+            this.authorBindingNavigator.Size = new System.Drawing.Size(343, 27);
             this.authorBindingNavigator.TabIndex = 0;
             this.authorBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -196,7 +192,7 @@
             this.authorDataGridView.Location = new System.Drawing.Point(0, 27);
             this.authorDataGridView.Name = "authorDataGridView";
             this.authorDataGridView.RowTemplate.Height = 24;
-            this.authorDataGridView.Size = new System.Drawing.Size(301, 224);
+            this.authorDataGridView.Size = new System.Drawing.Size(343, 213);
             this.authorDataGridView.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
@@ -217,21 +213,25 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "LastName";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
+            // authorBindingSource
+            // 
+            this.authorBindingSource.DataSource = typeof(BooksExamples.Author);
+            // 
             // DisplayAuthorsTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 251);
+            this.ClientSize = new System.Drawing.Size(343, 240);
             this.Controls.Add(this.authorDataGridView);
             this.Controls.Add(this.authorBindingNavigator);
             this.Name = "DisplayAuthorsTable";
             this.Text = "Display Authors Table";
             this.Load += new System.EventHandler(this.DisplayAuthorsTable_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.authorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorBindingNavigator)).EndInit();
             this.authorBindingNavigator.ResumeLayout(false);
             this.authorBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.authorDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.authorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
