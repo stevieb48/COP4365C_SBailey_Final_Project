@@ -285,4 +285,3 @@
         private System.Windows.Forms.ComboBox cmbbxQueries;
     }
 }
-
