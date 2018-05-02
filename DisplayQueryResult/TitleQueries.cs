@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BooksExamples;
 
 /*
  * This form ...
@@ -29,48 +30,80 @@ namespace DisplayQueryResult
             InitializeComponent();
         } // end contructor
 
+        public class BookEntry
+        {
+            public string BookTitle { get; set; }
+            public string FirstNameAuthor { get; set; }
+            public string LastNameAuthor { get; set; }
+        }
+
+        public class AuthorEntry
+        {
+            public List<string> BookTitles { get; set; }
+            public string FirstNameAuthor { get; set; }
+            public string LastNameAuthor { get; set; }
+        }
+
         // enitity framework DbContext
         private BooksExamples.BooksEntities dbcontext = new BooksExamples.BooksEntities();
 
-        //
+        //      
         private void CmbbxQueries_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Return db results into object
+            var BookEntryList = (from a in dbcontext.Authors
+                                 join at in dbcontext.AuthorISBNs on a.AuthorID equals at.AuthorID
+                                 join t in dbcontext.Titles on at.ISBN equals t.ISBN
+                                 orderby t.Title1
+                                 select new BookEntry() { FirstNameAuthor = a.FirstName, LastNameAuthor = a.LastName, BookTitle = t.Title1 }).ToList();
+
             // set data displayed according to what is selected
             switch (cmbbxQueries.SelectedIndex)
             {
                 case 0: // List All titles with their authors. Sorted by title
-                    // use linq
-                    var titlesByAuthorSortTitle =
-                        from author in dbcontext.Authors
-                        orderby author.FirstName, author.LastName
-                        select new
-                        {
-                            Name = author.FirstName + " " + author.LastName,
-                            Titles =
-                                from book in author.Titles
-                                orderby book.Title1
-                                select book.Title1
-                        };
+                        // use linq
 
-                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
-
-                    foreach (var author in titlesByAuthorSortTitle)
+                    foreach (var entry in BookEntryList)
                     {
-                        txtbxResults.AppendText("\r\n\t" + author.Name + ":");
-
-                        foreach (var title in author.Titles)
-                        {
-                            txtbxResults.AppendText("\r\n\t\t" + title);
-                        }
+                        txtbxResults.AppendText("\r\n\t" + entry.BookTitle + " " + entry.FirstNameAuthor + " " + entry.LastNameAuthor + ":");
                     }
 
                     break;
                 case 1: // All titles and the authors. Sorted by title. For each title sort authors A-Z last name, then first
-                    // use linq                   
+                    // use linq    
+                    foreach (var entry in BookEntryList)
+                    {
+                        txtbxResults.AppendText("\r\n\t" + entry.BookTitle + " " + entry.LastNameAuthor + " " + entry.FirstNameAuthor + ":");
+                    }
 
                     break;
                 case 2: // List All authors. Group by title. Sorted by title. For each title sort authors A-Z last name, then first
-                    // use linq                  
+                        // use linq 
+
+                    //Gets all distinct Authors
+                    var distinctAuthors = BookEntryList.Select(m => new { m.FirstNameAuthor, m.LastNameAuthor }).Distinct();
+
+                    var list = new List<AuthorEntry>();
+                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
+
+                    foreach (var a in distinctAuthors)
+                    {
+                        var entry = new AuthorEntry();
+                        entry.FirstNameAuthor = a.FirstNameAuthor;
+                        entry.LastNameAuthor = a.LastNameAuthor;
+                        entry.BookTitles = BookEntryList.Where(x =>
+                            x.FirstNameAuthor == a.FirstNameAuthor && x.LastNameAuthor == a.LastNameAuthor).Select(y => y.BookTitle).ToList();
+                        list.Add(entry);
+                    }
+
+                    foreach (var author in list)
+                    {
+                        txtbxResults.AppendText("\r\n\t" + author.FirstNameAuthor + " " + author.LastNameAuthor + ":");
+                        foreach (var title in author.BookTitles)
+                        {
+                            txtbxResults.AppendText("\r\n\t\t" + title);
+                        }
+                    }
 
                     break;
             } // end switch

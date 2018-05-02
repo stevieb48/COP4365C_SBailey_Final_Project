@@ -67,6 +67,9 @@
     <Compile Include="Author.cs">
       <DependentUpon>BooksModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuthorISBN.cs">
+      <DependentUpon>BooksModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BooksModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

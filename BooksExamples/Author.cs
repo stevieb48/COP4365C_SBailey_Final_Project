@@ -17,7 +17,7 @@ namespace BooksExamples
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Author()
         {
-            this.Titles = new HashSet<Title>();
+            this.AuthorISBNs = new HashSet<AuthorISBN>();
         }
     
         public int AuthorID { get; set; }
@@ -25,6 +25,6 @@ namespace BooksExamples
         public string LastName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Title> Titles { get; set; }
+        public virtual ICollection<AuthorISBN> AuthorISBNs { get; set; }
     }
 }

@@ -27,5 +27,6 @@ namespace BooksExamples
     
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<AuthorISBN> AuthorISBNs { get; set; }
     }
 }

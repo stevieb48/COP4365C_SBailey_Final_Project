@@ -7,9 +7,9 @@
     <Schema Namespace="BooksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuthorISBN">
           <Key>
-            <PropertyRef Name="AuthorID" />
-            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
           <Property Name="ISBN" Type="char" MaxLength="12" Nullable="false" />
         </EntityType>
@@ -78,7 +78,7 @@
           <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Titles" Relationship="Self.AuthorISBN" FromRole="Authors" ToRole="Titles" />
+          <NavigationProperty Name="AuthorISBNs" Relationship="BooksModel.FK_AuthorISBN_Authors" FromRole="Author" ToRole="AuthorISBN" />
         </EntityType>
         <EntityType Name="Title">
           <Key>
@@ -88,20 +88,55 @@
           <Property Name="Title1" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EditionNumber" Type="Int32" Nullable="false" />
           <Property Name="Copyright" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Authors" Relationship="Self.AuthorISBN" FromRole="Titles" ToRole="Authors" />
+          <NavigationProperty Name="AuthorISBNs" Relationship="BooksModel.FK_AuthorISBN_Titles" FromRole="Title" ToRole="AuthorISBN" />
         </EntityType>
-        <Association Name="AuthorISBN">
-          <End Role="Authors" Type="Self.Author" Multiplicity="*" />
-          <End Role="Titles" Type="Self.Title" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="BooksEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Titles" EntityType="Self.Title" />
-          <AssociationSet Name="AuthorISBN" Association="Self.AuthorISBN">
-            <End Role="Authors" EntitySet="Authors" />
-            <End Role="Titles" EntitySet="Titles" />
+          <EntitySet Name="AuthorISBNs" EntityType="BooksModel.AuthorISBN" />
+          <AssociationSet Name="FK_AuthorISBN_Authors" Association="BooksModel.FK_AuthorISBN_Authors">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="AuthorISBN" EntitySet="AuthorISBNs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthorISBN_Titles" Association="BooksModel.FK_AuthorISBN_Titles">
+            <End Role="Title" EntitySet="Titles" />
+            <End Role="AuthorISBN" EntitySet="AuthorISBNs" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AuthorISBN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Author" Relationship="BooksModel.FK_AuthorISBN_Authors" FromRole="AuthorISBN" ToRole="Author" />
+          <NavigationProperty Name="Title" Relationship="BooksModel.FK_AuthorISBN_Titles" FromRole="AuthorISBN" ToRole="Title" />
+        </EntityType>
+        <Association Name="FK_AuthorISBN_Authors">
+          <End Type="BooksModel.Author" Role="Author" Multiplicity="1" />
+          <End Type="BooksModel.AuthorISBN" Role="AuthorISBN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="AuthorISBN">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AuthorISBN_Titles">
+          <End Type="BooksModel.Title" Role="Title" Multiplicity="1" />
+          <End Type="BooksModel.AuthorISBN" Role="AuthorISBN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Title">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="AuthorISBN">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -127,14 +162,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AuthorISBN" TypeName="BooksModel.AuthorISBN" StoreEntitySet="AuthorISBN">
-            <EndProperty Name="Authors">
-              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-            </EndProperty>
-            <EndProperty Name="Titles">
-              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="AuthorISBNs">
+            <EntityTypeMapping TypeName="BooksModel.AuthorISBN">
+              <MappingFragment StoreEntitySet="AuthorISBN">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
