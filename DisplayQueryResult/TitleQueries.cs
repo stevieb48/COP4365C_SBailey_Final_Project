@@ -38,7 +38,7 @@ namespace DisplayQueryResult
             // set data displayed according to what is selected
             switch (cmbbxQueries.SelectedIndex)
             {
-                case 0: // All titles with their authors. Sorted by title
+                case 0: // List All titles with their authors. Sorted by title
                     // use linq
                     var titlesByAuthorSortTitle =
                         from author in dbcontext.Authors
@@ -92,11 +92,11 @@ namespace DisplayQueryResult
                     }
 
                     break;
-                case 2: // All authors. Group by title. For each title sort authors A-Z last name, then first
+                case 2: // List All authors. Group by title. Sorted by title. For each title sort authors A-Z last name, then first
                     // use linq
                     var authorsByTitleSortTitleSortAuthorAtoZLastNameFirstName =
                         from author in dbcontext.Authors
-                        orderby author.FirstName, author.LastName
+                        orderby author.LastName, author.FirstName
                         select new
                         {
                             Name = author.FirstName + " " + author.LastName,
