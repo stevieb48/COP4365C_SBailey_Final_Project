@@ -100,7 +100,7 @@ namespace DisplayQueryResult
 
                     foreach (var author in list)
                     {
-                        txtbxResults.AppendText("\r\n\t" + author.FirstNameAuthor + " " + author.LastNameAuthor + ":");
+                        txtbxResults.AppendText("\r\n\t" + author.LastNameAuthor + " " + author.FirstNameAuthor + ":");
                         foreach (var title in author.BookTitles)
                         {
                             txtbxResults.AppendText("\r\n\t\t" + title);
