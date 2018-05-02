@@ -16,7 +16,7 @@ using System.Windows.Forms;
  * author: Stephen Bailey
  * course: COP4365C
  * assignment: Final Project
- * date: 04/25/2018
+ * date: 04/30/2018
  * file name: DisplayAuthorsTable.cs
  * version: 1.0
  */
