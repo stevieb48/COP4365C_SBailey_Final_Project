@@ -47,7 +47,7 @@ namespace DisplayQueryResult
         // enitity framework DbContext
         private BooksExamples.BooksEntities dbcontext = new BooksExamples.BooksEntities();
 
-        //      
+        // when combo box changes change the textbox
         private void CmbbxQueries_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Return db results into object
@@ -62,6 +62,7 @@ namespace DisplayQueryResult
             {
                 case 0: // List All titles with their authors. Sorted by title
 
+                    // header
                     txtbxResults.AppendText("\r\n\r\nList All titles with their authors, Sorted by title:");
 
                     foreach (var entry in BookEntryList)
@@ -72,6 +73,7 @@ namespace DisplayQueryResult
                     break;
                 case 1: // All titles and the authors. Sorted by title. For each title sort authors A-Z last name, then first
 
+                    // header
                     txtbxResults.AppendText("\r\n\r\nList All titles and the authors, Sorted by title, and For each title sort authors A-Z last name, then first name:");
 
                     foreach (var entry in BookEntryList)
@@ -80,13 +82,15 @@ namespace DisplayQueryResult
                     }
 
                     break;
-                case 2: // List All authors. Group by title. Sorted by title. For each title sort authors A-Z last name, then first
-                    
+                case 2: // List All authors, Group by title, Sorted by title, and For each title sort authors A-Z last name, then A-Z first name
+
                     //Gets all distinct Authors
-                    var distinctAuthors = BookEntryList.Select(m => new { m.FirstNameAuthor, m.LastNameAuthor }).Distinct();
+                    var distinctAuthors = BookEntryList.Select(m => new { m.LastNameAuthor, m.FirstNameAuthor }).Distinct();
 
                     var list = new List<AuthorEntry>();
-                    txtbxResults.AppendText("\r\n\r\nTitles grouped by author:");
+
+                    // header
+                    txtbxResults.AppendText("\r\n\r\nList All authors, Group by title, Sorted by title, and For each title sort authors A-Z last name, then A-Z first name:");
 
                     foreach (var a in distinctAuthors)
                     {
