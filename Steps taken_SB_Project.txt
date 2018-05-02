@@ -1,0 +1,18 @@
+Steps Taken:
+
+1) Remove data table AuthorISBN
+2) Add FK for Titles, AuthorId.
+3) Add Data to table to point to correct Author(s)
+4) Update EDMX File
+5) TitleQueries.cs
+	- Get All data before going into switch statement - Retrieve list by Title **May have to adjust it to your specs as far as name**
+	Line 39:	        
+				var titleAuthorList = from a in dbcontext.Authors
+                join t in dbcontext.Titles on a.AuthorID equals t.AuthorId
+                orderby t.Title
+                select new {AuthorFirstName = a.FirstName, AuthorLastName = a.LastName, Title = t.Title};
+				
+		-- Sorts list by author last name		
+	var listByLastName = titleAuthorList.OrderBy(x => x.AuthorLastName).ToList();
+	
+	

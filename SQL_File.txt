@@ -1,0 +1,41 @@
+CREATE TABLE [dbo].[Authors] (
+    [AuthorId]  INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName] VARCHAR (50) NOT NULL,
+    [LastName]  VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Authors] PRIMARY KEY CLUSTERED ([AuthorID] ASC)
+);
+
+
+CREATE TABLE [dbo].[Titles] (
+    [ISBN]          CHAR (12)    NOT NULL,
+    [Title]         VARCHAR (60) NOT NULL,
+    [EditionNumber] INT          NOT NULL,
+    [Copyright]     VARCHAR (8)  NOT NULL,
+    [AuthorId] 		INT  		 NOT NULL,
+    CONSTRAINT [PK_Titles] PRIMARY KEY CLUSTERED ([ISBN] ASC),
+	FOREIGN KEY (AuthorId) REFERENCES Authors(AuthorID),
+    UNIQUE NONCLUSTERED ([ISBN] ASC)
+);
+
+
+
+-- Data insert --
+INSERT INTO Authors (FirstName, LastName)
+VALUES
+('Paul', 'Deitel'),
+('Harvey', 'Deitel'),
+('Abbey', 'Deitel'),
+('Dan', 'Quirk'),
+('Michael', 'Morgano');
+
+INSERT INTO Titles (ISBN, Title, EditionNumber, Copyright, AuthorId)
+VALUES 
+('0132151006', 'Internet & World Wide Web How to Program', 5, '2012',1),
+('0132575663', 'Java How to Program', 9, '2012',1),
+('013299044x', 'C How to Program', 7, '2013',1),
+('132990601', 'Simply Visual Basic 2010', 4, '2013',1),,
+('0133406954', 'Visual Basic 2012 How to Program', 6, '2014',1),
+('0133379337', 'Visual C# 2012 How to Program', 5, '2014',1),
+('0136151574', 'Visual C++ 2008 How to Program', 2, '2008',1),
+('0133378713', 'C++ How to Program', 9, '2014',1),
+('0132121360', 'Android for Programmers: An App-Driven Approach', 1, '2012',1);
