@@ -45,7 +45,7 @@ namespace DisplayQueryResult
             var BookEntryList = (from a in dbcontext.Authors
                                  join at in dbcontext.AuthorISBNs on a.AuthorID equals at.AuthorID
                                  join t in dbcontext.Titles on at.ISBN equals t.ISBN
-                                 orderby t.Title1
+                                 orderby t.Title1, a.LastName, a.FirstName
                                  select new BookEntry() { FirstNameAuthor = a.FirstName, LastNameAuthor = a.LastName, BookTitle = t.Title1 }).ToList();
 
             // set data displayed according to what is selected
@@ -104,9 +104,6 @@ namespace DisplayQueryResult
                         list.Add(entry);
                     }
 
-                    // order the list
-                    list.OrderByDescending(x => x.LastNameAuthor).ThenBy(x => x.FirstNameAuthor);
-
                     // for each author in list
                     foreach (var author in list)
                     {
@@ -124,12 +121,5 @@ namespace DisplayQueryResult
                     break;
             } // end switch
         } // end method cmbbxQueries_SelectedIndexChanged
-
-        //
-        private void ListAllTitlesWithTheirAuthorSortedByTitle()
-        {
-
-        }
-
     } // end class TitleQueries
 } // end namespace DisplayQueryResults
