@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * This class represents a book entry.
+ * This class represents a book entry with an author.
  * 
  * author: Stephen Bailey
  * course: COP4365C
