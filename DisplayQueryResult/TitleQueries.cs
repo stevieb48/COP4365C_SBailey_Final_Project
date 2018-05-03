@@ -124,5 +124,12 @@ namespace DisplayQueryResult
                     break;
             } // end switch
         } // end method cmbbxQueries_SelectedIndexChanged
+
+        //
+        private void ListAllTitlesWithTheirAuthorSortedByTitle()
+        {
+
+        }
+
     } // end class TitleQueries
 } // end namespace DisplayQueryResults

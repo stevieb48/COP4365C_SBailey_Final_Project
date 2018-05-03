@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksExamples", "BooksExamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayQueryResult", "DisplayQueryResult\DisplayQueryResult.csproj", "{B691C756-9E52-4676-8C19-B2C1DC01E4A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClasses", "Book Classes\BookClasses.csproj", "{7255E44E-757D-40E4-9B93-361D3B455EB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookClasses", "BookClasses\BookClasses.csproj", "{7255E44E-757D-40E4-9B93-361D3B455EB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
