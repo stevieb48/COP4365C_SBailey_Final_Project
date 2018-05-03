@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BookClasses;
 using BooksExamples;
 
 /*
@@ -33,20 +34,6 @@ namespace DisplayQueryResult
         {
             InitializeComponent();
         } // end contructor
-
-        public class BookEntry
-        {
-            public string BookTitle { get; set; }
-            public string FirstNameAuthor { get; set; }
-            public string LastNameAuthor { get; set; }
-        }
-
-        public class AuthorEntry
-        {
-            public List<string> BookTitles { get; set; }
-            public string FirstNameAuthor { get; set; }
-            public string LastNameAuthor { get; set; }
-        }
 
         // enitity framework DbContext
         private BooksExamples.BooksEntities dbcontext = new BooksExamples.BooksEntities();

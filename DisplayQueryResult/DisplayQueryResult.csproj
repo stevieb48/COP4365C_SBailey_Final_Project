@@ -88,6 +88,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Book Classes\BookClasses.csproj">
+      <Project>{7255E44E-757D-40E4-9B93-361D3B455EB2}</Project>
+      <Name>BookClasses</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BooksExamples\BooksExamples.csproj">
       <Project>{70dab110-931e-4040-925c-c31c3c57fe0f}</Project>
       <Name>BooksExamples</Name>
