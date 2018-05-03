@@ -11,7 +11,11 @@ using System.Windows.Forms;
 using BooksExamples;
 
 /*
- * This form ...
+ * This form is used to display data stored in the Books database which contains 3 tables
+ * (Titles, Authors, AuthorISBN) using Entity framework and LINQ.
+ * 
+ * It also contains a combobox at the bottom with 3 choices of what user can display in the 
+ * textbox from the DB.
  * 
  * author: Stephen Bailey
  * course: COP4365C
@@ -65,8 +69,10 @@ namespace DisplayQueryResult
                     // header
                     txtbxResults.AppendText("\r\n\r\nList All titles with their authors, Sorted by title:");
 
+                    // for each entry in the result list
                     foreach (var entry in BookEntryList)
                     {
+                        // add to the text box
                         txtbxResults.AppendText("\r\n\t" + entry.BookTitle + " " + entry.FirstNameAuthor + " " + entry.LastNameAuthor + ":");
                     }
 
@@ -76,8 +82,10 @@ namespace DisplayQueryResult
                     // header
                     txtbxResults.AppendText("\r\n\r\nList All titles and the authors, Sorted by title, and For each title sort authors A-Z last name, then first name:");
 
+                    // for each entry in the results
                     foreach (var entry in BookEntryList)
                     {
+                        // add to the text box
                         txtbxResults.AppendText("\r\n\t" + entry.BookTitle + " " + entry.LastNameAuthor + " " + entry.FirstNameAuthor + ":");
                     }
 
@@ -87,26 +95,41 @@ namespace DisplayQueryResult
                     //Gets all distinct Authors
                     var distinctAuthors = BookEntryList.Select(m => new { m.LastNameAuthor, m.FirstNameAuthor }).Distinct();
 
+                    // list of authors
                     var list = new List<AuthorEntry>();
 
                     // header
-                    txtbxResults.AppendText("\r\n\r\nList All authors, Group by title, Sorted by title, and For each title sort authors A-Z last name, then A-Z first name:");
+                    txtbxResults.AppendText("\r\n\r\nList All authors, Group by title, Sorted by title, and For each title sort authors A-Z last name, then first name:");
 
+                    // for each author in distinct authors list
                     foreach (var a in distinctAuthors)
                     {
-                        var entry = new AuthorEntry();
-                        entry.FirstNameAuthor = a.FirstNameAuthor;
-                        entry.LastNameAuthor = a.LastNameAuthor;
-                        entry.BookTitles = BookEntryList.Where(x =>
-                            x.FirstNameAuthor == a.FirstNameAuthor && x.LastNameAuthor == a.LastNameAuthor).Select(y => y.BookTitle).ToList();
+                        // add an entry
+                        var entry = new AuthorEntry
+                        {
+                            FirstNameAuthor = a.FirstNameAuthor,
+                            LastNameAuthor = a.LastNameAuthor,
+                            BookTitles = BookEntryList.Where(x => x.FirstNameAuthor == a.FirstNameAuthor
+                                && x.LastNameAuthor == a.LastNameAuthor).Select(y => y.BookTitle).ToList()
+                        };
+
+                        // add entry to list
                         list.Add(entry);
                     }
 
+                    // order the list
+                    list.OrderByDescending(x => x.LastNameAuthor).ThenBy(x => x.FirstNameAuthor);
+
+                    // for each author in list
                     foreach (var author in list)
                     {
+                        // add to the text box
                         txtbxResults.AppendText("\r\n\t" + author.LastNameAuthor + " " + author.FirstNameAuthor + ":");
+
+                        // for each title in author
                         foreach (var title in author.BookTitles)
                         {
+                            // add to the text box
                             txtbxResults.AppendText("\r\n\t\t" + title);
                         }
                     }
